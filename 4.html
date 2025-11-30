@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>植物是吃什麼長大的?｜整合版（含提交）</title>
+<style>
+:root{
+  --green:#15803d; --blue:#1d4ed8; --teal:#0f766e; --orange:#d97706;
+  --gray:#5f6368;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,"Microsoft JhengHei",sans-serif;color:#111827;background:#fff;line-height:1.7}
+header{background:linear-gradient(180deg,#ecfdf5,#ffffff);padding:22px 18px 10px;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:5}
+h1{margin:0 0 6px;font-size:26px}
+.subtitle{color:#64748b;font-size:14px}
+main{max-width:1100px;margin:0 auto;padding:18px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:16px;box-shadow:0 2px 6px rgba(0,0,0,.05);margin-bottom:16px}
+h2{margin:0 0 10px;font-size:20px}
+p{margin:8px 0;white-space:pre-wrap}
+/* layout: text left, question right */
+.two-col{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:16px;align-items:start}
+@media (max-width:620px){ .two-col{grid-template-columns:1fr;} }
+.two-col > :first-child{order:1}
+.two-col > aside{order:2}
+/* right question panel */
+.side{border:1px dashed #d1d5db;border-radius:12px;padding:12px;background:#fafafa}
+.side h3{margin:0 0 8px;font-size:18px}
+.side .hint{font-size:13px;color:#64748b;margin-top:6px}
+textarea{width:100%;min-height:92px;padding:10px;border:1px solid #d1d5db;border-radius:10px;font-family:inherit;font-size:15px;resize:vertical;background:#fff}
+/* student form */
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:700px){ .form-grid{grid-template-columns:1fr;} }
+input[type=text]{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:10px}
+.req{font-size:12px;color:#6b7280}
+/* submit bar */
+.submitbar{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:8px}
+button{border-radius:12px;border:1px solid #d1d5db;background:#fff;padding:10px 16px;cursor:pointer}
+button[disabled]{opacity:.6;cursor:not-allowed}
+.status{font-size:14px;color:#374151}
+.success{color:#0f766e}
+.error{color:#b91c1c}
+/* keyword colors */
+mark{padding:0 .18em;border-radius:.35em;font-weight:600;background:none}
+.k-water{color:#0f766e}
+.k-co2{color:#1d4ed8}
+.k-o2{color:#059669}
+.k-sun{color:#b45309}
+.k-photo{color:#7c3aed}
+.k-starch{color:#d97706}
+</style>
+</head>
+<body>
+<header>
+  <h1>植物是吃什麼長大的? <span style="font-size:14px;color:#2563eb;">（整合提交版）</span></h1>
+  <div class="subtitle">填寫基本資料，閱讀每段故事後在右側回答問題。全部完成後即可提交並解鎖「下一頁」。</div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>基本資料</h2>
+    <div class="form-grid">
+      <label>班級
+        <input type="text" id="cls" placeholder="例如：701">
+      </label>
+      <label>座號
+        <input type="text" id="num" placeholder="例如：15">
+      </label>
+      <label>姓名
+        <input type="text" id="name" placeholder="請輸入姓名">
+      </label>
+    </div>
+    <div class="req">※ 需填寫三欄，且六題（含第 4 題的兩小題）皆完成，才能提交。</div>
+  </section>
+
+  <!-- 段落 1 -->
+  <section class="card">
+    <h2>一、柳樹與水的猜想</h2>
+    <div class="two-col">
+      <div>
+<p>三百多年前，這的確還是個謎，當時人們對這個問題都還是未知的……。
+    1642年一位比利時醫生名海爾蒙特首先探討了這個問題。海爾蒙特在花盆中種了一棵柳樹，5年後，柳樹的重量增加約77公斤，但土壤只減少了約90公克。海爾蒙特認為5年中除了澆<mark class="k-water">水</mark>，並沒有加入其他物質，所以柳樹增加的重量應來自<mark class="k-water">水</mark>。</p>
+      </div>
+      <aside class="side">
+        <h3>討論問題一</h3>
+        <div>讓柳樹5年間增加的 77 公斤的物質，是從哪裡來的？</div>
+        <textarea id="q1" placeholder="建議方向：除了水，空氣或其他因素是否也可能參與？請提出你的推論。"></textarea>
+        <div class="hint">提示：思考系統的輸入/輸出物質有哪些。</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 段落 2 -->
+  <section class="card">
+    <h2>二、伍德沃德的「三種水」</h2>
+    <div class="two-col">
+      <div>
+<p>1699年，英國科學家伍德沃德他把3棵高矮相仿的薄荷分別栽到純雨水、河水和<mark class="k-soil">土壤溶液</mark>中。幾個月後，發現純雨水中的薄荷莖枯葉黃，瀕臨死亡；河水中的薄荷生長良好；土壤溶液中的薄荷枝繁葉茂，成長最旺。伍德沃德做出結論，植物生長靠的不是<mark class="k-water">水</mark>，而是土壤中的「粒子」。</p>
+      </div>
+      <aside class="side">
+        <h3>討論問題二</h3>
+        <div>在伍德沃德的實驗中，為什麼土壤溶液的薄荷生長的最旺盛？</div>
+        <textarea id="q2" placeholder="建議方向：土壤溶液可能含有哪些溶解的礦物質或離子？對生長有何影響？"></textarea>
+        <div class="hint">提示：思考根如何吸收礦物質與水分。</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 段落 3 -->
+  <section class="card">
+    <h2>三、普利斯特列與「好空氣 / 壞空氣」</h2>
+    <div class="two-col">
+      <div>
+<p>1771 年，人類研究<mark class="k-photo">光合作用</mark>有了重大的突破，英國牧師、化學家普利斯特列做了一個十分有趣的實驗。他把一隻老鼠放到密封的鐘罩內，不久，老鼠命歸西天。在鐘罩裡放上一枝生長旺盛的薄荷枝條，同時放入一隻老鼠，老鼠好多天安然無恙。在放置薄荷枝條的密封鐘罩內，放入一只燃燒著的蠟燭，蠟燭久久沒有枯滅。綜合實驗結果，普利斯特列分析認為：動物呼吸及蠟燭燃燒，會污染空氣，而生長旺盛的薄荷等綠色植物則能淨化空氣，使「壞空氣」變成「好空氣」。有人重複試驗，所得結果有時與普利斯特列的相同，即綠色植物使「壞空氣」變好了;但有時得到的結果卻是相反，即綠色植物把「好空氣」弄髒了。</p>
+      </div>
+      <aside class="side">
+        <h3>討論問題三</h3>
+        <div>有人重複普利斯特列的實驗，結果相反；這代表他的推論是錯的嗎？</div>
+        <textarea id="q3" placeholder="建議方向：變因控制（有光/無光、植物狀態）如何影響結果？"></textarea>
+        <div class="hint">提示：比較白天與黑夜時，綠色植物對空氣的影響。</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 段落 4 -->
+  <section class="card">
+    <h2>四、英根豪斯的 500 次驗證</h2>
+    <div class="two-col">
+      <div>
+<p>這不一致的結果，使荷蘭醫生英根豪斯決心探個水落石出。1779 年夏天，他來到英國倫敦租了一所房子，開始艱辛的試驗。他找來一只大燒杯，往裡注滿清水，放上幾把新鮮水草，在水草上面倒扣一個短頸漏斗，漏斗的頸上再倒扣一個充滿清水的試管，然後小心翼翼地把裝置搬到陽光直射的地方。照射一段時間後，只見氣泡一串串自水草處冒出，沿漏斗頸上升，直達試管底部。當氣體佔據試管大半空間時，他在水下用姆指堵緊試管口，並湊近管口，突然鬆開姆指，「騰」地一聲，蠟燭的火焰竄得好高，而這應該就是<mark class="k-o2">氧氣</mark>。英根豪斯又把這套裝置移到黑暗處，好長時間，也沒見一個氣泡冒出來。
+為增加試驗的可信度，英根豪兹又採來另外幾種水草，在不同的  環境條件下，花了 3 個月時間，前後做 500 餘次試驗，終於發現：只有<mark class="k-sun">陽光</mark>照射下，綠色植物才能把「壞空變」為「好空氣」：而在黑暗環境中，綠色植物則會把「好空氣」變壞了。至此人們了解了綠色植物在有光時能淨化空氣，而在黑暗中則損壞空氣。</p>
+      </div>
+      <aside class="side">
+        <h3>討論問題四</h3>
+        <div>4-1 英根豪斯發現了哪些與普利斯特列不同的答案？</div>
+        <textarea id="q4a" placeholder="建議方向：加入『光照/黑暗』條件，解釋結果為何不同。"></textarea>
+        <div style="height:8px"></div>
+        <div>4-2 為什麼英根豪斯要前後作 500 次試驗？</div>
+        <textarea id="q4b" placeholder="建議方向：重複實驗、統一條件、排除偶然與誤差。"></textarea>
+        <div class="hint">提示：好研究重視可重複性與變因控制。</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 段落 5 -->
+  <section class="card">
+    <h2>五、索緒爾與二氧化碳</h2>
+    <div class="two-col">
+      <div>
+<p>然而，仍有一個令人費解的問題仍未解決，為何密封鐘罩內的老鼠能夠與綠色植物長期共存。     直到19世紀後，科學家們進一步試驗，又得到了一系列引人注目的成果。1804 年瑞士化學家索緒爾準備兩個大玻璃球，分別包覆在樹枝上，其中一個玻璃球內放入石灰以吸收<mark class="k-co2">二氧化碳</mark>，另一個玻璃球沒有石灰。實驗三個星期後，裝有石灰之玻璃球中的樹枝，葉子掉光了，而沒有石灰之玻璃球中的樹枝，葉片沒有掉落，即使經過兩個月，葉子還是沒有掉落。經由此系列實驗結果，索爾緒證明了「植物需要<mark class="k-co2">二氧化碳</mark>才能存活」。他再仔細比較綠色植物吸收的<mark class="k-co2">二氧化碳</mark>與產生的有機物與釋放的<mark class="k-o2">氧氣</mark>之間的數量關係，他發現植物製造的有機物和<mark class="k-o2">氧</mark>釋放量，遠遠超過<mark class="k-co2">二氧化碳</mark>吸收量，所以他推斷，<mark class="k-water">水</mark>分參與了這一反應。</p>
+      </div>
+      <aside class="side">
+        <h3>討論問題五</h3>
+        <div>根據以上發現，你認為<mark class="k-photo">光合作用</mark>所需要的原料有哪些？</div>
+        <textarea id="q5" placeholder="建議方向：列出必備原料並說明來源（氣孔/根／陽光）。"></textarea>
+        <div class="hint">提示：至少包含二氧化碳、水與光能。</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 段落 6 -->
+  <section class="card">
+    <h2>六、走向「光合作用」的統整</h2>
+    <div class="two-col">
+      <div>
+<p>到了 19 世紀中期，科學家們綜合前人的成果，終於歸納出植物製造養分的過程的反應過程。不過當時其實還沒有「<mark class="k-photo">光合作用</mark>」這個名詞。1897年：法國學者佩弗根據這個生理活動需要<mark class="k-sun">陽光</mark>照射，屬於合成代謝的特點，為它取了一個恰當而且響亮的名字「<mark class="k-photo">光合作用</mark>」，這個名字一直沿用至今。    20世紀的科學家們，相繼陸續找到了<mark class="k-photo">光合作用</mark>的基本結構單位是葉綠素，並將<mark class="k-photo">葉綠體</mark>從細胞中搬出來，進行有關<mark class="k-photo">光合作用</mark>的一些實驗。最後。從科學家的研究中更加證實了<mark class="k-photo">葉綠體</mark>是行<mark class="k-photo">光合作用</mark>的場所。1937年，科學家卡爾文開始研究<mark class="k-photo">光合作用</mark>。終於發現了<mark class="k-photo">光合作用</mark>的過程中，<mark class="k-co2">二氧化碳</mark>如何被合成<mark class="k-starch">葡萄糖</mark>分子，並聚合成<mark class="k-starch">澱粉</mark>的方式……。。</p>
+      </div>
+      <aside class="side">
+        <h3>討論問題六</h3>
+        <div>根據以上發現，你認為<mark class="k-photo">光合作用</mark>所產生的產物有哪些？</div>
+        <textarea id="q6" placeholder="建議方向：至少包含氧氣與有機物（葡萄糖/澱粉），再補充其去向。"></textarea>
+        <div class="hint">提示：想想碘液測試與助燃氣體。</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 提交 -->
+  <section class="card">
+    <div class="submitbar">
+      <button id="submitBtn" disabled>提交答案</button>
+      <span id="status" class="status"></span>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="nav" style="display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto">
+    <a class="prev" href="3.html">← 上一頁</a>
+    <a class="next disabled" href="./5.html" aria-disabled="true">下一頁 →</a>
+  </div>
+</footer>
+
+<script>
+// === 4.3 的 Apps Script Web App URL ===
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6Pk7l4xNwqAov7YCaaxd3e_cJjhd8Za14Zyz-ZsTuCF5Wwc7U9F6t3iRETWdJA1I/exec";
+const SHEET_NAME = "photosynthesis";
+
+// 欄位
+const fields = {
+  cls:  document.getElementById('cls'),
+  num:  document.getElementById('num'),
+  name: document.getElementById('name'),
+  q1:   document.getElementById('q1'),
+  q2:   document.getElementById('q2'),
+  q3:   document.getElementById('q3'),
+  q4a:  document.getElementById('q4a'),
+  q4b:  document.getElementById('q4b'),
+  q5:   document.getElementById('q5'),
+  q6:   document.getElementById('q6'),
+};
+
+const submitBtn = document.getElementById('submitBtn');
+const statusEl  = document.getElementById('status');
+const nextLink  = document.querySelector('.next');
+
+function allReady(){
+  // 三欄基本資料 + 六個回答（q1 q2 q3 q4a q4b q5 q6）
+  return Object.values(fields).every(el => el && el.value.trim().length > 0);
+}
+
+Object.values(fields).forEach(el => el.addEventListener('input', () => {
+  submitBtn.disabled = !allReady();
+}));
+
+async function sendData(){
+  statusEl.textContent = "上傳中…";
+  statusEl.className = "status";
+
+  const payload = {
+    sheetName: SHEET_NAME,
+    data: {
+      timestamp: new Date().toISOString(),
+      class:  fields.cls.value.trim(),
+      number: fields.num.value.trim(),
+      name:   fields.name.value.trim(),
+      q1:     fields.q1.value.trim(),
+      q2:     fields.q2.value.trim(),
+      q3:     fields.q3.value.trim(),
+      q4a:    fields.q4a.value.trim(),
+      q4b:    fields.q4b.value.trim(),
+      q5:     fields.q5.value.trim(),
+      q6:     fields.q6.value.trim(),
+    }
+  };
+
+  try{
+    const resp = await fetch(WEB_APP_URL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload),
+    });
+    if(resp.ok){
+      await resp.text().catch(()=>{});
+      onSuccess(true);
+      return;
+    }else{
+      throw new Error("HTTP " + resp.status);
+    }
+  }catch(e){
+    // 後備：no-cors（可能寫入但拿不到回應）
+    try{
+      await fetch(WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(payload),
+      });
+      onSuccess(false);
+    }catch(e2){
+      statusEl.textContent = "❌ 提交失敗，請稍後重試或通知老師。";
+      statusEl.className = "status error";
+    }
+  }
+}
+
+function onSuccess(hasResponse){
+  statusEl.textContent = hasResponse ? "✅ 已提交成功！" : "✅ 已提交（no-cors）。請至試算表確認。";
+  statusEl.className = "status success";
+  submitBtn.disabled = true;
+  // 鎖定所有欄位
+  Object.values(fields).forEach(el => el.disabled = true);
+  // 解鎖下一頁
+  nextLink.classList.remove('disabled');
+  nextLink.removeAttribute('aria-disabled');
+}
+
+submitBtn.addEventListener('click', sendData);
+</script>
+</body>
+</html>

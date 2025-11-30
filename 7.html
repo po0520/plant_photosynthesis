@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>光合作用大挑戰</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FFC107;
+            --bg-gradient: linear-gradient(180deg, #E3F2FD 0%, #E8F5E9 100%);
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow: hidden; /* 防止遊戲時畫面捲動 */
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            margin: 0;
+            color: #2E7D32;
+            font-size: 1.5rem;
+        }
+
+        main {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        /* 遊戲容器 */
+        #game-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+            border: 2px solid #C8E6C9;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            touch-action: none; /* 防止觸控時捲動頁面 */
+        }
+
+        /* UI 圖層 */
+        .ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 開始與結束畫面 */
+        .modal {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            pointer-events: auto;
+            max-width: 80%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .modal h2 {
+            color: #2E7D32;
+            margin-top: 0;
+        }
+
+        .modal p {
+            line-height: 1.6;
+            margin: 15px 0;
+            color: #555;
+            text-align: left;
+        }
+
+        .btn-start {
+            background: linear-gradient(45deg, #4CAF50, #8BC34A);
+            border: none;
+            color: white;
+            padding: 12px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+
+        .btn-start:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        /* 遊戲中資訊 HUD */
+        .hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 20px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2E7D32;
+            text-shadow: 1px 1px 0 #fff;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+
+        /* 題目顯示區 */
+        .question-box {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #4CAF50;
+            width: 90%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            pointer-events: none;
+        }
+
+        /* 頁尾導覽 */
+        .nav-footer {
+            background: #fff;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .nav-prev {
+            background-color: #78909C;
+        }
+
+        .nav-next {
+            background-color: #4CAF50;
+        }
+
+        .nav-next.disabled {
+            background-color: #E0E0E0;
+            color: #9E9E9E;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 光芒動畫 */
+        @keyframes glowGreen {
+            0% { box-shadow: inset 0 0 0 0 rgba(76, 175, 80, 0); }
+            50% { box-shadow: inset 0 0 50px 20px rgba(76, 175, 80, 0.5); }
+            100% { box-shadow: inset 0 0 0 0 rgba(76, 175, 80, 0); }
+        }
+        @keyframes glowRed {
+            0% { box-shadow: inset 0 0 0 0 rgba(244, 67, 54, 0); }
+            50% { box-shadow: inset 0 0 50px 20px rgba(244, 67, 54, 0.5); }
+            100% { box-shadow: inset 0 0 0 0 rgba(244, 67, 54, 0); }
+        }
+
+        .effect-green { animation: glowGreen 0.5s ease-out; }
+        .effect-red { animation: glowRed 0.5s ease-out; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>光合作用大挑戰 🌿</h1>
+</header>
+
+<main>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- HUD -->
+        <div class="hud" id="hud" style="display: none;">
+            <span>得分: <span id="scoreDisplay">0</span></span>
+            <span>時間: <span id="timeDisplay">120</span>s</span>
+        </div>
+
+        <!-- 題目 -->
+        <div class="question-box" id="questionDisplay" style="display: none;">
+            題目載入中...
+        </div>
+
+        <!-- UI 層 -->
+        <div class="ui-layer" id="uiLayer">
+            <!-- 開始頁面 -->
+            <div class="modal" id="startScreen">
+                <h2>🎮 遊戲說明</h2>
+                <div style="text-align: left; margin: 0 auto; max-width: 400px;">
+                    <p>1. 你控制一片<strong>綠色葉片 🍃</strong>。</p>
+                    <p>2. 上方會出現光合作用相關題目。</p>
+                    <p>3. 答案選項會從右邊飛過來。</p>
+                    <p>4. <strong>滑鼠/手指上下移動</strong>葉片來吃到正確答案。</p>
+                    <p>✅ 答對：+10分 (綠光)<br>❌ 答錯：-3分 (紅光)</p>
+                    <p>⏳ 限時 2 分鐘，挑戰最高分！</p>
+                </div>
+                <button class="btn-start" onclick="game.start()">開始遊戲</button>
+            </div>
+
+            <!-- 結束頁面 -->
+            <div class="modal" id="endScreen" style="display: none;">
+                <h2>挑戰結束！</h2>
+                <p>你的最終分數是</p>
+                <h1 style="font-size: 3rem; color: #4CAF50; margin: 10px 0;" id="finalScore">0</h1>
+                <p id="endMessage"></p>
+                <button class="btn-start" onclick="location.reload()">再玩一次</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="nav-footer">
+    <a href="6.html" class="nav-btn nav-prev">← 上一頁</a>
+    <a href="./8.html" id="nextBtn" class="nav-btn nav-next disabled">下一頁 →</a>
+</footer>
+
+<script>
+    // 題目資料庫
+    const questions = [
+        {
+            q: "1. 光合作用的反應式為：「甲 + 二氧化碳 → 氧氣 + 乙 + 水」。下列關於甲的名稱是？",
+            options: [
+                { text: "(A) 甲是葡萄糖", id: "A" },
+                { text: "(B) 乙是水", id: "B" },
+                { text: "(C) 甲是水", id: "C" },
+                { text: "(D) 乙是二氧化碳", id: "D" }
+            ],
+            ans: "C"
+        },
+        {
+            q: "2. 綠色植物自身的角度來看，光合作用最核心的意義為何？",
+            options: [
+                { text: "(A) 減少溫室效應", id: "A" },
+                { text: "(B) 合成養分", id: "B" },
+                { text: "(C) 釋放氧氣", id: "C" },
+                { text: "(D) 吸收水分", id: "D" }
+            ],
+            ans: "B"
+        },
+        {
+            q: "3. 光合作用主要在植物細胞的哪個構造中進行？",
+            options: [
+                { text: "(A) 細胞核", id: "A" },
+                { text: "(B) 粒線體", id: "B" },
+                { text: "(C) 葉綠體", id: "C" },
+                { text: "(D) 細胞壁", id: "D" }
+            ],
+            ans: "C"
+        },
+        {
+            q: "4. 光合作用所需的主要能量來源為何？",
+            options: [
+                { text: "(A) 化學能", id: "A" },
+                { text: "(B) 礦物質能", id: "B" },
+                { text: "(C) 太陽光的光能", id: "C" },
+                { text: "(D) 熱能", id: "D" }
+            ],
+            ans: "C"
+        },
+        {
+            q: "5. 植物葉可行光合作用的部位為？",
+            options: [
+                { text: "(A) 只有葉肉", id: "A" },
+                { text: "(B) 只有表皮", id: "B" },
+                { text: "(C) 葉肉與保衛細胞", id: "C" },
+                { text: "(D) 葉肉與葉脈", id: "D" }
+            ],
+            ans: "C"
+        },
+        {
+            q: "6. 植物行光合作用時，是原料也是產物的是？",
+            options: [
+                { text: "(A) 氧氣", id: "A" },
+                { text: "(B) 水", id: "B" },
+                { text: "(C) 二氧化碳", id: "C" },
+                { text: "(D) 葡萄糖", id: "D" }
+            ],
+            ans: "B"
+        },
+        {
+            q: "7. 光合作用實驗中，酒精隔水加熱的目的是？",
+            options: [
+                { text: "(A) 軟化角質層", id: "A" },
+                { text: "(B) 去除葉綠素", id: "B" },
+                { text: "(C) 檢測澱粉", id: "C" },
+                { text: "(D) 檢測葡萄糖", id: "D" }
+            ],
+            ans: "B"
+        },
+        {
+            q: "8. 下列哪一種營養素在被細胞吸收時，其分子形式主要是「胺基酸」？",
+            options: [
+                { text: "(A) 脂肪", id: "A" },
+                { text: "(B) 纖維素", id: "B" },
+                { text: "(C) 蛋白質", id: "C" },
+                { text: "(D) 澱粉", id: "D" }
+            ],
+            ans: "C" // 依照使用者提供的答案 Key
+        },
+        {
+            q: "9. 光合作用所需要水來自於？",
+            options: [
+                { text: "(A) 葉脈運輸", id: "A" },
+                { text: "(B) 氣孔吸收", id: "B" },
+                { text: "(C) 自行製造", id: "C" },
+                { text: "(D) 表皮滲透", id: "D" }
+            ],
+            ans: "A"
+        },
+        {
+            q: "10. 我們所食地瓜的養分來自於？",
+            options: [
+                { text: "(A) 根部吸收", id: "A" },
+                { text: "(B) 莖部儲存", id: "B" },
+                { text: "(C) 氣孔進入", id: "C" },
+                { text: "(D) 葉部製造", id: "D" }
+            ],
+            ans: "D"
+        }
+    ];
+
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const container = document.getElementById('game-container');
+
+    // 遊戲狀態
+    const game = {
+        active: false,
+        score: 0,
+        timeLeft: 120,
+        qIndex: 0,
+        lastTime: 0,
+        speedMultiplier: 1, // 速度倍率
+        leaf: {
+            x: 100,
+            y: 250,
+            size: 40,
+            emoji: "🍃"
+        },
+        options: [], // 當前畫面上的選項
+        optionPool: [], // 待生成的選項
+        spawnTimer: 0,
+        
+        // 初始化
+        init: function() {
+            this.resize();
+            window.addEventListener('resize', () => this.resize());
+            
+            // 滑鼠/觸控控制
+            container.addEventListener('mousemove', (e) => this.handleInput(e));
+            container.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                this.handleInput(e.touches[0]);
+            }, {passive: false});
+        },
+
+        resize: function() {
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        },
+
+        handleInput: function(e) {
+            if (!this.active) return;
+            const rect = canvas.getBoundingClientRect();
+            let y = e.clientY - rect.top;
+            
+            // 限制範圍
+            if (y < this.leaf.size) y = this.leaf.size;
+            if (y > canvas.height - this.leaf.size) y = canvas.height - this.leaf.size;
+            
+            this.leaf.y = y;
+        },
+
+        start: function() {
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('hud').style.display = 'flex';
+            document.getElementById('questionDisplay').style.display = 'block';
+            
+            this.active = true;
+            this.score = 0;
+            this.timeLeft = 120;
+            this.qIndex = 0;
+            this.speedMultiplier = 1;
+            this.updateQuestion();
+            this.lastTime = performance.now();
+            
+            // 開始計時
+            this.timerInterval = setInterval(() => {
+                this.timeLeft--;
+                document.getElementById('timeDisplay').innerText = this.timeLeft;
+                if (this.timeLeft <= 0) this.end();
+            }, 1000);
+
+            requestAnimationFrame((t) => this.loop(t));
+        },
+
+        updateQuestion: function() {
+            if (this.qIndex >= questions.length) {
+                this.end();
+                return;
+            }
+            
+            const qData = questions[this.qIndex];
+            document.getElementById('questionDisplay').innerText = qData.q;
+            
+            // 準備該題的選項 (打亂順序，或者直接使用)
+            // 這裡我們將4個選項放入陣列，並隨機分配到不同的 Y 軸軌道
+            // 每次呼叫 updateQuestion 時，重置選項池
+            this.options = [];
+            
+            // 產生4個選項物件
+            const lanes = [0.2, 0.4, 0.6, 0.8]; // Y軸相對位置
+            const shuffledLanes = lanes.sort(() => Math.random() - 0.5);
+            
+            qData.options.forEach((opt, index) => {
+                this.options.push({
+                    text: opt.text,
+                    id: opt.id,
+                    isCorrect: opt.id === qData.ans,
+                    x: canvas.width + (index * 300) + 50, // 初始位置錯開
+                    y: canvas.height * shuffledLanes[index],
+                    width: 200,
+                    height: 50,
+                    active: true
+                });
+            });
+
+            // 隨題目進展加快速度 (1.0 -> 2.5)
+            this.speedMultiplier = 1 + (this.qIndex * 0.15);
+        },
+
+        loop: function(timestamp) {
+            if (!this.active) return;
+            const dt = (timestamp - this.lastTime) / 1000;
+            this.lastTime = timestamp;
+
+            this.update(dt);
+            this.draw();
+
+            requestAnimationFrame((t) => this.loop(t));
+        },
+
+        update: function(dt) {
+            let activeCount = 0;
+            const baseSpeed = 150; // 基礎速度 pixels/sec
+
+            this.options.forEach(opt => {
+                if (!opt.active) return;
+                
+                // 移動
+                opt.x -= baseSpeed * this.speedMultiplier * dt;
+                
+                // 碰撞檢測 (圓形葉片 vs 矩形選項)
+                // 簡單判定：葉片中心點進入矩形範圍
+                if (this.leaf.x > opt.x && this.leaf.x < opt.x + opt.width &&
+                    this.leaf.y > opt.y - opt.height/2 && this.leaf.y < opt.y + opt.height/2) {
+                    
+                    this.handleCollision(opt);
+                }
+
+                // 邊界檢查 (超出左側)
+                if (opt.x + opt.width < 0) {
+                    opt.active = false;
+                    // 如果正確答案跑掉了，重置該題選項位置讓它再跑一次
+                    if (opt.isCorrect) {
+                        this.respawnOption(opt);
+                    }
+                } else {
+                    activeCount++;
+                }
+            });
+        },
+
+        respawnOption: function(opt) {
+            // 讓選項回到右側，並稍微隨機 Y 軸
+            opt.active = true;
+            opt.x = canvas.width + 100;
+            opt.y = canvas.height * (0.2 + Math.random() * 0.6);
+        },
+
+        handleCollision: function(opt) {
+            opt.active = false; // 移除該選項
+
+            if (opt.isCorrect) {
+                // 答對
+                this.score += 10;
+                document.getElementById('scoreDisplay').innerText = this.score;
+                container.classList.add('effect-green');
+                setTimeout(() => container.classList.remove('effect-green'), 500);
+                
+                // 下一題
+                this.qIndex++;
+                setTimeout(() => this.updateQuestion(), 500); // 稍微延遲讓玩家反應
+            } else {
+                // 答錯
+                this.score -= 3;
+                document.getElementById('scoreDisplay').innerText = this.score;
+                container.classList.add('effect-red');
+                setTimeout(() => container.classList.remove('effect-red'), 500);
+                // 答錯選項消失，繼續尋找正確答案
+            }
+        },
+
+        draw: function() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 繪製軌道線 (裝飾)
+            ctx.strokeStyle = "rgba(0,0,0,0.05)";
+            ctx.beginPath();
+            for(let i=1; i<5; i++) {
+                ctx.moveTo(0, canvas.height * i * 0.2);
+                ctx.lineTo(canvas.width, canvas.height * i * 0.2);
+            }
+            ctx.stroke();
+
+            // 繪製葉片
+            ctx.font = `${this.leaf.size}px Arial`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(this.leaf.emoji, this.leaf.x, this.leaf.y);
+            
+            // 繪製選項
+            this.options.forEach(opt => {
+                if (!opt.active) return;
+                
+                // 選項背景
+                ctx.fillStyle = "#fff";
+                ctx.shadowColor = "rgba(0,0,0,0.2)";
+                ctx.shadowBlur = 5;
+                ctx.fillRect(opt.x, opt.y - opt.height/2, opt.width, opt.height);
+                ctx.shadowBlur = 0;
+                
+                // 邊框
+                ctx.strokeStyle = "#4CAF50";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(opt.x, opt.y - opt.height/2, opt.width, opt.height);
+
+                // 文字
+                ctx.fillStyle = "#333";
+                ctx.font = "bold 16px Arial";
+                ctx.textAlign = "left";
+                ctx.fillText(opt.text, opt.x + 10, opt.y + 5);
+            });
+        },
+
+        end: function() {
+            this.active = false;
+            clearInterval(this.timerInterval);
+            
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('finalScore').innerText = this.score;
+            document.getElementById('hud').style.display = 'none';
+            document.getElementById('questionDisplay').style.display = 'none';
+
+            // 解鎖下一頁按鈕
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.classList.remove('disabled');
+            nextBtn.style.backgroundColor = "#4CAF50"; // 確保視覺上變亮
+            
+            let msg = "";
+            if (this.score >= 80) msg = "太厲害了！你是光合作用大師！🌿";
+            else if (this.score >= 50) msg = "還不錯喔！繼續加油！🌱";
+            else msg = "再複習一下觀念會更好喔！🍃";
+            document.getElementById('endMessage').innerText = msg;
+        }
+    };
+
+    // 啟動初始化
+    game.init();
+
+</script>
+</body>
+</html>

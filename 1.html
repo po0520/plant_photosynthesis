@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>植物如何製造養分_學習頁面_葉的構造與功能</title>
+<style>
+  :root{
+    --green:#1e8e3e;
+    --blue:#1a73e8;
+    --orange:#f29900;
+    --teal:#0f9d58;
+    --pink:#d81b60;
+    --purple:#9333ea;
+    --brown:#8d6e63;
+    --gray:#5f6368;
+    --light:#f6f8fc;
+  }
+  body{
+    font-family: "Noto Sans TC", system-ui, -apple-system, Segoe UI, Roboto, Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background: #fff;
+    color: #202124;
+  }
+  header{
+    background: linear-gradient(180deg, #e8f5e9, #ffffff);
+    padding: 24px 20px 8px;
+    border-bottom: 1px solid #e0e3e7;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+  h1{
+    margin: 0 0 4px;
+    font-size: 24px;
+    letter-spacing: .5px;
+  }
+  .subtitle{color: var(--gray); font-size: 14px;}
+  main{max-width: 980px; margin: 0 auto; padding: 20px;}
+  section.card{
+    background: #fff;
+    border: 1px solid #e0e3e7;
+    border-radius: 14px;
+    padding: 18px 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.04);
+    margin-bottom: 18px;
+  }
+  h2{margin: 0 0 10px; font-size: 20px; color: #111827;}
+  p{margin: 10px 0;}
+  .two-col{
+    display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;
+  }
+  .two-col .text{ flex: 1 1 380px; }
+  .two-col .media{ flex: 0 1 280px; }
+  .two-col img{ width:100%; height:auto; border-radius:12px; border:1px solid #e0e3e7; }
+  /* keyword colors */
+  mark{padding:0 .2em; border-radius:.35em; font-weight:600; background: none;}
+  .k-leaf{ color: var(--green); }
+  .k-mesophyll{ color: var(--blue); }
+  .k-chloro{ color: var(--teal); }
+  .k-epidermis{ color: var(--purple); }
+  .k-cuticle{ color: var(--orange); }
+  .k-guard{ color: var(--pink); }
+  .k-stoma{ color: #ef6c00; } /* deep orange */
+  .k-vein{ color: var(--brown); }
+  .k-transport{ color: #00695c; }
+  /* quiz */
+  .quiz{ border:1px dashed #d0d7de; border-radius:12px; padding:14px; margin-top:8px; }
+  .quiz h3{ margin:0 0 8px; font-size:18px;}
+  .controls{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
+  button{
+    border-radius:10px; border:1px solid #d0d7de; padding:8px 14px; background:#fff; cursor:pointer;
+  }
+  button[disabled]{opacity:.6; cursor:not-allowed;}
+  .feedback{ display:none; margin-top:10px; padding:10px; border-radius:10px; background:#f8f9fa; border:1px solid #e0e3e7; }
+  .correct{ border-color:#a5d6a7 !important; background:#e8f5e9 !important; }
+  .incorrect{ border-color:#ef9a9a !important; background:#ffebee !important; }
+  .quiz.correct .feedback.ok{ display:block; }
+  .quiz.incorrect .feedback.no{ display:block; }
+  /* footer nav */
+  footer{
+    border-top:1px solid #e0e3e7; background:#fafafa; padding:14px 20px; margin-top:24px;
+  }
+  .nav{
+    display:flex; justify-content:space-between; align-items:center; max-width:980px; margin:0 auto;
+  }
+  .nav a{
+    text-decoration:none; border:1px solid #d0d7de; padding:10px 14px; border-radius:10px; background:#fff; color:#111827;
+  }
+  .nav a.next.disabled{ opacity:.5; pointer-events:none; }
+  .pill{display:inline-block; padding:4px 8px; font-size:12px; border-radius:999px; background:#eef6ff; border:1px solid #d0e2ff; color:#1546a0; margin-left:8px;}
+  .req{ font-size:12px; color:#5f6368; }
+  .small{ font-size: 13px; color: #5f6368; }
+  ul.clean{ list-style: none; padding-left: 0; }
+  ul.clean li{ margin: 4px 0; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>植物如何製造養分_學習頁面_葉的構造與功能 <span class="pill">生物七上</span></h1>
+    <div class="subtitle">閱讀完兩段重點，再完成下方三題互動練習。全部答對後可解鎖前往下一頁。</div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>製造養分的位置</h2>
+      <p>
+        <mark class="k-leaf">葉</mark>是大多數植物製造養分的主要器官，其中
+        <mark class="k-mesophyll">葉肉</mark>是製造養分的主要部位，其他構造也和養分的製造或葉子的生長息息相關。
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>葉的構造與功能</h2>
+      <div class="two-col">
+        <div class="text">
+          <p>
+            葉的<mark class="k-epidermis">上、下表皮</mark>主要由透明無色、排列緊密，具保護功能的表皮細胞組成，
+            其外側多具有<mark class="k-cuticle">角質層</mark>，可避免水分過度散失。
+            表皮上散布著半月形的<mark class="k-guard">保衛細胞</mark>，內含<mark class="k-chloro">葉綠體</mark>，
+            且保衛細胞兩兩成對，中間會形成<mark class="k-stoma">氣孔</mark>，是氣體進出植物的主要通道。
+          </p>
+          <p>
+            上、下表皮間的<mark class="k-mesophyll">葉肉組織</mark>是由葉肉細胞組成，葉肉細胞具有大量的
+            <mark class="k-chloro">葉綠體</mark>，是進行光合作用的主要場所。
+            <mark class="k-vein">葉脈</mark>是葉內的輸導組織，能<mark class="k-transport">運輸</mark>水分和養分，
+            以利各種代謝作用的進行。
+          </p>
+        </div>
+        <div class="media">
+          <img src="LEAF1.png" alt="葉的構造示意圖" />
+          <div class="small">圖：葉的剖面示意（上表皮、葉肉、葉脈、下表皮、氣孔等）</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>互動練習</h2>
+      <div class="req">請完成每題後按「檢查答案」。若答錯可點「重做本題」再嘗試。</div>
+
+      <!-- Q1: 單選題 -->
+      <div id="q1" class="quiz" data-correct="false">
+        <h3>Q1. 植物「製造養分的主要部位」是下列哪一個？</h3>
+        <label><input type="radio" name="q1" value="葉肉"> 葉肉</label><br/>
+        <label><input type="radio" name="q1" value="表皮"> 表皮</label><br/>
+        <label><input type="radio" name="q1" value="角質層"> 角質層</label>
+        <div class="controls">
+          <button class="check" disabled>檢查答案</button>
+          <button class="redo" style="display:none;">重做本題</button>
+        </div>
+        <div class="feedback ok">✅ 做得好！葉肉細胞含大量葉綠體，是光合作用製造養分的主要場所。</div>
+        <div class="feedback no">❌ 再想想：表皮與角質層主要負責保護與防止水分散失，並非主要的製造部位。</div>
+      </div>
+
+      <!-- Q2: 複選題 -->
+      <div id="q2" class="quiz" data-correct="false">
+        <h3>Q2. 關於葉的構造與功能，下列哪些敘述是正確的？（可複選）</h3>
+        <label><input type="checkbox" name="q2" value="guard_chloro"> 保衛細胞內含葉綠體，且成對分布。</label><br/>
+        <label><input type="checkbox" name="q2" value="stoma_gas"> 氣孔是氣體進出植物的主要通道。</label><br/>
+        <label><input type="checkbox" name="q2" value="vein_only_water"> 葉脈只運輸水分，不運輸養分。</label><br/>
+        <label><input type="checkbox" name="q2" value="epidermis_loose"> 表皮細胞排列鬆散，以利通氣。</label><br/>
+        <label><input type="checkbox" name="q2" value="cuticle_reduce"> 角質層可避免水分過度散失。</label>
+        <div class="controls">
+          <button class="check" disabled>檢查答案</button>
+          <button class="redo" style="display:none;">重做本題</button>
+        </div>
+        <div class="feedback ok">✅ 正確組合！(1)(2)(5)為正確敘述；葉脈也運輸養分，表皮細胞排列緊密。</div>
+        <div class="feedback no">❌ 再檢查：請選出所有正確敘述。(提示：葉脈也運輸養分，表皮細胞排列「緊密」。)</div>
+      </div>
+
+      <!-- Q3: 下拉填空 -->
+      <div id="q3" class="quiz" data-correct="false">
+        <h3>Q3. 依據課文填空：上表皮外側的
+          <select id="q3sel">
+            <option value="">（請選擇）</option>
+            <option>角質層</option>
+            <option>保衛細胞</option>
+            <option>葉脈</option>
+          </select>
+          可以有效避免水分過度散失。
+        </h3>
+        <div class="controls">
+          <button class="check" disabled>檢查答案</button>
+          <button class="redo" style="display:none;">重做本題</button>
+        </div>
+        <div class="feedback ok">✅ 太棒了！角質層是覆於表皮外的薄層，可減少水分散失。</div>
+        <div class="feedback no">❌ 再想想：哪個構造在表皮外側、與「防止水分散失」最相關？</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="nav">
+      <a class="prev" href="index.html">← 上一頁</a>
+      <a class="next disabled" href="./2.html" aria-disabled="true">下一頁 →</a>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  // helpers
+  const byId = (id)=>document.getElementById(id);
+  const allQuizzes = Array.from(document.querySelectorAll('.quiz'));
+  const nextLink = document.querySelector('.next');
+
+  function enableCheckIfAnswered(q){
+    const checkBtn = q.querySelector('button.check');
+    const inputs = Array.from(q.querySelectorAll('input, select'));
+    function evaluateFilled(){
+      let filled = false;
+      if(q.id==='q1'){
+        filled = q.querySelector('input[name="q1"]:checked') !== null;
+      }else if(q.id==='q2'){
+        filled = q.querySelectorAll('input[name="q2"]:checked').length>0;
+      }else if(q.id==='q3'){
+        filled = byId('q3sel').value!=='';
+      }
+      checkBtn.disabled = !filled;
+    }
+    inputs.forEach(el=>el.addEventListener('change', evaluateFilled));
+    evaluateFilled();
+  }
+
+  function lockQuizButtons(q){
+    q.querySelector('.check').disabled = true;
+    const redo = q.querySelector('.redo');
+    redo.style.display = 'inline-block';
+  }
+
+  function resetQuiz(q){
+    q.classList.remove('correct','incorrect');
+    q.dataset.correct = "false";
+    const redo = q.querySelector('.redo');
+    if(redo) redo.style.display = 'none';
+    // clear inputs
+    if(q.id==='q1'){
+      q.querySelectorAll('input[name="q1"]').forEach(i=>{ i.checked=false; i.disabled=false; });
+    }else if(q.id==='q2'){
+      q.querySelectorAll('input[name="q2"]').forEach(i=>{ i.checked=false; i.disabled=false; });
+    }else if(q.id==='q3'){
+      const sel = byId('q3sel'); sel.value=''; sel.disabled=false;
+    }
+    // re-enable check when filled
+    enableCheckIfAnswered(q);
+  }
+
+  function evaluate(q){
+    let isCorrect = false;
+    if(q.id==='q1'){
+      const ans = q.querySelector('input[name="q1"]:checked');
+      isCorrect = ans && ans.value==='葉肉';
+    }else if(q.id==='q2'){
+      const values = Array.from(q.querySelectorAll('input[name="q2"]:checked')).map(i=>i.value).sort().join('|');
+      const key = ['cuticle_reduce','guard_chloro','stoma_gas'].sort().join('|');
+      isCorrect = values===key;
+    }else if(q.id==='q3'){
+      isCorrect = byId('q3sel').value==='角質層';
+    }
+    // visual + state
+    q.classList.toggle('correct', isCorrect);
+    q.classList.toggle('incorrect', !isCorrect);
+    q.dataset.correct = isCorrect ? "true" : "false";
+    // lock the check button; disable inputs when correct
+    lockQuizButtons(q);
+    if(isCorrect){
+      // disable inputs to避免誤觸
+      q.querySelectorAll('input, select').forEach(el=>el.disabled=true);
+    }
+    checkAllCorrect();
+  }
+
+  function checkAllCorrect(){
+    const allOk = allQuizzes.every(q => q.dataset.correct === "true");
+    if(allOk){
+      nextLink.classList.remove('disabled');
+      nextLink.removeAttribute('aria-disabled');
+    }
+  }
+
+  // Wire up each quiz
+  allQuizzes.forEach(q=>{
+    enableCheckIfAnswered(q);
+    q.querySelector('.check').addEventListener('click', ()=>evaluate(q));
+    q.querySelector('.redo').addEventListener('click', ()=>resetQuiz(q));
+  });
+})();
+</script>
+</body>
+</html>

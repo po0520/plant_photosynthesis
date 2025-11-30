@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>植物如何製造養分_學習頁面_光合作用</title>
+<style>
+:root{ --ok:#16a34a; --bad:#dc2626; --border:#e5e7eb; --text:#111827; --muted:#6b7280; }
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,"Microsoft JhengHei",sans-serif;color:var(--text);background:#fff;line-height:1.7}
+header{background:linear-gradient(180deg,#f8fafc,#ffffff);padding:22px 18px 12px;border-bottom:1px solid var(--border)}
+h1{margin:0 0 6px;font-size:26px}
+.subtitle{color:var(--muted);font-size:14px}
+main{max-width:1100px;margin:0 auto;padding:18px}
+.flex{display:grid;grid-template-columns:520px 1fr;gap:18px;align-items:start}
+@media (max-width:960px){ .flex{grid-template-columns:1fr;} }
+.imgwrap{border:1px solid var(--border);border-radius:14px;padding:10px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.imgwrap img{width:100%;height:auto;display:block;border-radius:10px}
+.card{border:1px solid var(--border);border-radius:14px;padding:14px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.04);margin-bottom:14px}
+.qrow{display:grid;grid-template-columns:72px 1fr 130px 120px;gap:10px;align-items:center}
+@media (max-width:720px){ .qrow{grid-template-columns:70px 1fr; gap:8px} .qrow .actions{grid-column:1/-1} }
+.qrow .label{font-weight:700}
+select{padding:8px;border:1px solid var(--border);border-radius:10px;width:100%}
+button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer}
+button[disabled]{opacity:.6;cursor:not-allowed}
+.feedback{display:none;margin-top:8px;padding:10px;border-radius:10px}
+.correct{border-color:var(--ok);background:#ecfdf5}
+.correct .feedback{display:block;border:1px solid var(--ok);background:#ecfdf5;color:#065f46}
+.incorrect{border-color:var(--bad);background:#fef2f2}
+.incorrect .feedback{display:block;border:1px solid var(--bad);background:#fef2f2;color:#7f1d1d}
+.answers{display:flex;flex-wrap:wrap;gap:8px}
+.answers .chip{border:1px dashed var(--border);border-radius:999px;padding:6px 10px;background:#f9fafb;font-size:13px;color:#374151}
+footer{border-top:1px solid var(--border);background:#fafafa;padding:14px 20px;margin-top:16px}
+.nav{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto}
+.nav a{text-decoration:none;border:1px solid var(--border);padding:10px 14px;border-radius:10px;background:#fff;color:#111827}
+.nav a.next.disabled{opacity:.5;pointer-events:none}
+.small{font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>植物如何製造養分_學習頁面_光合作用</h1>
+  <div class="subtitle">請觀察下圖，完成右側 A～F 的配對。<span class="small">提示：A 與 F 為相同物質。</span></div>
+</header>
+
+<main>
+  <div class="flex">
+    <div class="imgwrap">
+      <img src="5.png" alt="光合作用配對圖（A~F）">
+      <div class="small" style="margin-top:6px">圖旁說明：<b>A 與 F 為同一物質</b>；請依「反應物／產物」概念完成配對。</div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="small" style="margin-bottom:8px">答案區（僅作提示）：
+          <div class="answers">
+            <span class="chip">光</span>
+            <span class="chip">水</span>
+            <span class="chip">氧氣</span>
+            <span class="chip">二氧化碳</span>
+            <span class="chip">水</span>
+            <span class="chip">葡萄糖</span>
+          </div>
+        </div>
+
+        <!-- Rows A-F -->
+        <div id="rows"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="nav">
+    <a class="prev" href="4.html">← 上一頁</a>
+    <a class="next disabled" href="./6.html" aria-disabled="true">下一頁 →</a>
+  </div>
+</footer>
+
+<script>
+const QUESTIONS = [
+  {key:"A", answer:"光"},
+  {key:"B", answer:"水"},
+  {key:"C", answer:"二氧化碳"},
+  {key:"D", answer:"氧氣"},
+  {key:"E", answer:"葡萄糖"},
+  {key:"F", answer:"水"}
+];
+const OPTIONS = ["請選擇","光","水","氧氣","二氧化碳","葡萄糖"];
+
+const rowsContainer = document.getElementById('rows');
+QUESTIONS.forEach((q) => {
+  const row = document.createElement('div');
+  row.className = 'card qrow';
+  row.id = 'row-'+q.key;
+
+  row.innerHTML = `
+    <div class="label">圖 ${q.key}</div>
+    <div>
+      <select id="sel-${q.key}" aria-label="${q.key} 的答案">
+        ${OPTIONS.map(opt => `<option value="${opt}">${opt}</option>`).join("")}
+      </select>
+    </div>
+    <div class="actions">
+      <button id="check-${q.key}" disabled>檢查答案</button>
+      <button id="redo-${q.key}" style="display:none">重做本題</button>
+    </div>
+    <div class="feedback" id="fb-${q.key}"></div>
+  `;
+  rowsContainer.appendChild(row);
+
+  const sel  = row.querySelector(`#sel-${q.key}`);
+  const btn  = row.querySelector(`#check-${q.key}`);
+  const redo = row.querySelector(`#redo-${q.key}`);
+  const fb   = row.querySelector(`#fb-${q.key}`);
+
+  sel.addEventListener('change', () => {
+    btn.disabled = (sel.value === "請選擇");
+  });
+
+  btn.addEventListener('click', () => {
+    if(sel.value === q.answer){
+      row.classList.remove('incorrect');
+      row.classList.add('correct');
+      fb.textContent = `✔ 正確！圖 ${q.key} 是「${q.answer}」。`;
+      sel.disabled = true;
+      btn.disabled = true;
+      redo.style.display = "none";
+      checkAllCorrect();
+    }else{
+      row.classList.remove('correct');
+      row.classList.add('incorrect');
+      fb.textContent = `✘ 再想想：你選的是「${sel.value}」。可以參考圖示的「反應物／產物」線索。`;
+      btn.disabled = true;
+      redo.style.display = "inline-block";
+    }
+  });
+
+  redo.addEventListener('click', () => {
+    row.classList.remove('incorrect');
+    fb.textContent = "";
+    sel.disabled = false;
+    sel.value = "請選擇";
+    btn.disabled = true;
+    redo.style.display = "none";
+  });
+});
+
+function checkAllCorrect(){
+  const allOK = QUESTIONS.every(q => {
+    const row = document.getElementById('row-'+q.key);
+    return row.classList.contains('correct');
+  });
+  const next = document.querySelector('.next');
+  if(allOK){
+    next.classList.remove('disabled');
+    next.removeAttribute('aria-disabled');
+  }
+}
+</script>
+</body>
+</html>

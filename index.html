@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>植物如何製造養分｜光合作用</title>
+<style>
+  :root{
+    --fg:#0f172a;
+    --muted:#475569;
+    --ring:#22c55e;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:"Noto Sans TC", system-ui, -apple-system, Segoe UI, Roboto, "Microsoft JhengHei", sans-serif;
+    color:var(--fg);
+    background: radial-gradient(1000px 600px at 50% -10%, #e8fbe9 0%, #ffffff 55%) fixed;
+  }
+  .wrap{
+    min-height:100%;
+    display:grid;
+    place-items:center;
+    padding:24px;
+  }
+  .center{
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    max-width:960px;
+  }
+  h1{
+    margin:0;
+    font-size:clamp(28px, 5vw, 48px);
+    letter-spacing:.5px;
+  }
+  .subtitle{
+    margin-top:-8px;
+    color:var(--muted);
+    font-size:clamp(14px, 2.5vw, 20px);
+  }
+  .imgbtn{
+    border:2px solid #e5e7eb;
+    border-radius:16px;
+    padding:10px;
+    background:#fff;
+    box-shadow:0 10px 30px rgba(0,0,0,.07);
+    cursor:pointer;
+    transition: transform .08s ease, box-shadow .2s ease, border-color .2s ease;
+    outline:none;
+  }
+  .imgbtn:hover{ transform: translateY(-1px); box-shadow:0 14px 34px rgba(0,0,0,.1); border-color:#d1d5db;}
+  .imgbtn:active{ transform: translateY(0); box-shadow:0 8px 20px rgba(0,0,0,.08); }
+  .imgbtn:focus-visible{ outline: 3px solid var(--ring); outline-offset: 4px; }
+  .imgbtn img{ width:min(420px, 70vw); height:auto; display:block; border-radius:12px; }
+  .hint{ color:#64748b; font-size:13px; }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="center">
+      <h1>植物如何製造養分</h1>
+      <div class="subtitle">光合作用</div>
+
+      <!-- Clickable image button -->
+      <button id="startBtn" class="imgbtn" aria-label="開始學習，前往下一頁" title="開始學習" tabindex="0">
+        <img src="0.png" alt="太陽、植物、二氧化碳與水進入，氧氣釋出的示意圖">
+        <span class="sr-only">開始</span>
+      </button>
+      <div class="hint">點擊圖片，或按下 Enter / 空白鍵</div>
+    </div>
+  </div>
+
+<script>
+  (function(){
+    function goNext(){
+      window.location.href = "1.html";
+    }
+    const btn = document.getElementById('startBtn');
+    btn.addEventListener('click', goNext);
+    // Keyboard: Enter or Space anywhere
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' ' || e.code === 'Space'){
+        e.preventDefault();
+        goNext();
+      }
+    });
+  })();
+</script>
+</body>
+</html>

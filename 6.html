@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>植物如何製造養分_學習頁面_光合實驗連連看（固定槽位＋欄別檢查＋單列即時提示）</title>
+<style>
+:root{ --ok:#16a34a; --bad:#dc2626; --border:#e5e7eb; --muted:#6b7280; --text:#111827; --bg:#ffffff; --okbg:#ecfdf5; --badbg:#fef2f2; --warnbg:#fff7ed;}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,"Microsoft JhengHei",sans-serif;color:var(--text);background:var(--bg);line-height:1.7}
+header{background:linear-gradient(180deg,#eef2ff,#ffffff);padding:22px 18px 12px;border-bottom:1px solid var(--border)}
+h1{margin:0 0 6px;font-size:26px}
+.subtitle{color:var(--muted);font-size:14px}
+main{max-width:1100px;margin:0 auto;padding:18px}
+
+.board{position:relative;border:1px solid var(--border);border-radius:16px;padding:16px;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.board.correct{background:var(--okbg);border-color:var(--ok)}
+.board.incorrect{background:var(--badbg);border-color:var(--bad)}
+
+.cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.col{border:1px dashed var(--border);border-radius:12px;padding:10px;background:#fafafa;position:relative;transition:background .2s,border-color .2s}
+.col h3{margin:0 0 8px;font-size:16px;color:#334155}
+.col .subfb{font-size:12px;color:#64748b;margin:6px 0 8px;height:18px}
+.col.col-correct{background:var(--okbg);border-color:var(--ok)}
+.col.col-incorrect{background:#fff5f5;border-color:#fecaca}
+
+.list{display:flex;flex-direction:column;gap:10px}
+.slot{height:125px; position:relative; padding-left:34px; border:1px dashed transparent; border-radius:10px; transition:background .15s,border-color .15s}
+.slot-label{position:absolute;left:6px;top:8px; width:22px;height:22px;border-radius:999px;border:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;color:#475569}
+.slot.row-ok{background:var(--okbg); border-color:var(--ok)}
+.slot.drop-target{background:#f8fafc; border-color:#cbd5e1}
+
+.item{height:100%; border:1px solid var(--border);border-radius:12px;background:#ffffff;padding:8px 10px;cursor:grab;display:flex;align-items:center;justify-content:center;text-align:center;user-select:none;transition:box-shadow .2s}
+.item.dragging{opacity:.6}
+.item.locked{cursor:default}
+.item:focus{outline:none;box-shadow:0 0 0 2px rgba(37,99,235,.25)}
+
+.imgbox{width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:8px}
+.imgbox img{max-width:100%;max-height:100%;display:block}
+
+.textchip{font-size:15px;padding:6px 8px}
+
+.actions{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+button{border:1px solid var(--border);background:#fff;border-radius:10px;padding:10px 14px;cursor:pointer}
+button[disabled]{opacity:.6;cursor:not-allowed}
+
+.feedback{display:none;margin-top:10px;padding:10px;border-radius:10px;font-size:14px}
+.board.correct .feedback{display:block;border:1px solid var(--ok);background:var(--okbg);color:#065f46}
+.board.incorrect .feedback{display:block;border:1px solid var(--bad);background:var(--badbg);color:#7f1d1d}
+
+footer{border-top:1px solid var(--border);background:#fafafa;padding:14px 20px;margin-top:16px}
+.nav{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto}
+.nav a{text-decoration:none;border:1px solid var(--border);padding:10px 14px;border-radius:10px;background:#fff;color:#111827}
+.nav a.next.disabled{opacity:.5;pointer-events:none}
+@media (max-width:960px){
+  .slot{height:140px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>植物如何製造養分_學習頁面_光合實驗連連看</h1>
+  <div class="subtitle">三欄（圖片／步驟名稱／操作目的）皆可<strong>拖曳排序</strong>。槽位編號 ①②③④ 固定不移動；每列高度固定；不顯示水平對齊線。可各欄獨立檢查，並提供「單列即時提示」。三欄都正確後可前往下一頁。</div>
+</header>
+
+<main>
+  <section id="board" class="board">
+    <div class="cols">
+      <!-- Column: Images -->
+      <div class="col" id="col-images">
+        <h3>圖片（拖曳排序）</h3>
+        <div class="subfb" id="subfb-images"></div>
+        <div id="list-images" class="list" data-type="images"></div>
+        <div class="actions" style="justify-content:flex-end">
+          <button id="check-images" disabled>檢查本欄</button>
+        </div>
+      </div>
+
+      <!-- Column: Steps -->
+      <div class="col" id="col-steps">
+        <h3>步驟名稱（拖曳排序）</h3>
+        <div class="subfb" id="subfb-steps"></div>
+        <div id="list-steps" class="list" data-type="steps"></div>
+        <div class="actions" style="justify-content:flex-end">
+          <button id="check-steps" disabled>檢查本欄</button>
+        </div>
+      </div>
+
+      <!-- Column: Purposes -->
+      <div class="col" id="col-purposes">
+        <h3>操作目的（拖曳排序）</h3>
+        <div class="subfb" id="subfb-purposes"></div>
+        <div id="list-purposes" class="list" data-type="purposes"></div>
+        <div class="actions" style="justify-content:flex-end">
+          <button id="check-purposes" disabled>檢查本欄</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="check-all" disabled>檢查全部</button>
+      <button id="redo" style="display:none">重做本題</button>
+    </div>
+    <div id="feedback" class="feedback"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="nav">
+    <a class="prev" href="5.html">← 上一頁</a>
+    <a class="next disabled" href="./7.html" aria-disabled="true">下一頁 →</a>
+  </div>
+</footer>
+
+<script>
+// ===== Answers =====
+const ANSWERS = {
+  images: ["6_1","6_2","6_3","6_4"],
+  steps: ["熱水煮沸","酒精隔水加熱","熱水漂洗","滴加碘液"],
+  purposes: ["破壞角質層","溶出葉綠素","洗去酒精","檢測澱粉"],
+};
+const STEPS_POOL = ["熱水煮沸","酒精隔水加熱","熱水漂洗","滴加碘液"];
+const PURPOSE_POOL = ["破壞角質層","溶出葉綠素","洗去酒精","檢測澱粉"];
+
+const board = document.getElementById('board');
+const feedback = document.getElementById('feedback');
+const nextLink = document.querySelector('.next');
+const redoBtn  = document.getElementById('redo');
+
+// Build fixed slots with labels ①②③④ (slots stay in place)
+const NUMS = ["①","②","③","④"];
+function makeSlots(listEl, count=4){
+  listEl.innerHTML = "";
+  for(let i=0;i<count;i++){
+    const slot = document.createElement('div');
+    slot.className = 'slot';
+    slot.dataset.index = String(i);
+    const lab = document.createElement('div');
+    lab.className = 'slot-label';
+    lab.textContent = NUMS[i];
+    slot.appendChild(lab);
+    listEl.appendChild(slot);
+  }
+}
+
+function shuffle(a){ const arr=a.slice(); for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]];} return arr; }
+
+// Generate initial items and place into slots (random except images fixed initial order 6_3,6_4,6_1,6_2)
+function placeInitial(){
+  const imgList = document.getElementById('list-images');
+  const stepList = document.getElementById('list-steps');
+  const purpList = document.getElementById('list-purposes');
+  makeSlots(imgList); makeSlots(stepList); makeSlots(purpList);
+
+  const imgOrder = ["6_3","6_4","6_1","6_2"];
+  imgOrder.forEach((id, idx)=>{
+    const it = makeItem({id, html:`<div class="imgbox"><img src="${id}.png" alt="圖片"></div>`});
+    imgList.children[idx].appendChild(it);
+  });
+
+  shuffle(STEPS_POOL).forEach((txt, idx)=>{
+    const it = makeItem({id:txt, text:txt, textchip:true});
+    stepList.children[idx].appendChild(it);
+  });
+  shuffle(PURPOSE_POOL).forEach((txt, idx)=>{
+    const it = makeItem({id:txt, text:txt, textchip:true});
+    purpList.children[idx].appendChild(it);
+  });
+
+  enableDnDColumn(imgList);
+  enableDnDColumn(stepList);
+  enableDnDColumn(purpList);
+  updateButtons();
+  updateRowHints();
+}
+
+function makeItem({id, text="", html="", textchip=false}){
+  const div = document.createElement('div');
+  div.className = 'item' + (textchip ? ' textchip' : '');
+  div.draggable = true;
+  div.dataset.id = id;
+  if(html){ div.innerHTML = html; } else { div.textContent = text; }
+  return div;
+}
+
+// Drag & drop within a column (swap items between fixed slots)
+function enableDnDColumn(listEl){
+  let dragged = null, sourceSlot = null;
+
+  listEl.addEventListener('dragstart', e => {
+    const it = e.target.closest('.item');
+    if(!it || it.classList.contains('locked')) return;
+    dragged = it;
+    sourceSlot = it.parentElement;
+    it.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+
+  listEl.addEventListener('dragend', e => {
+    const it = e.target.closest('.item');
+    if(it) it.classList.remove('dragging');
+    dragged = null; sourceSlot = null;
+    updateButtons();
+    updateRowHints();
+  });
+
+  listEl.querySelectorAll('.slot').forEach(slot => {
+    slot.addEventListener('dragover', e => {
+      e.preventDefault();
+      slot.classList.add('drop-target');
+    });
+    slot.addEventListener('dragleave', () => slot.classList.remove('drop-target'));
+    slot.addEventListener('drop', () => {
+      slot.classList.remove('drop-target');
+      if(!dragged) return;
+      const targetItem = slot.querySelector('.item');
+      if(targetItem && sourceSlot){
+        // swap
+        sourceSlot.appendChild(targetItem);
+      }
+      slot.appendChild(dragged);
+    });
+  });
+}
+
+function currentOrder(listId){
+  return Array.from(document.querySelectorAll('#'+listId+' .slot'))
+          .map(slot => (slot.querySelector('.item')?.dataset.id || "").replace('.png',''));
+}
+
+// Per-row live hint: if row i is entirely correct (all three cols), tint that row in all three columns
+function updateRowHints(){
+  const imgs = currentOrder('list-images');
+  const steps= currentOrder('list-steps');
+  const purs = currentOrder('list-purposes');
+  for(let i=0;i<4;i++){
+    const ok = (imgs[i]===ANSWERS.images[i]) && (steps[i]===ANSWERS.steps[i]) && (purs[i]===ANSWERS.purposes[i]);
+    ['list-images','list-steps','list-purposes'].forEach(id => {
+      const slot = document.querySelector(`#${id} .slot:nth-child(${i+1})`);
+      if(ok) slot.classList.add('row-ok'); else slot.classList.remove('row-ok');
+    });
+  }
+}
+
+// Column eval + sub feedback
+function evalColumn(listId, correctArr, colId, subId){
+  const order = currentOrder(listId);
+  const isOK = JSON.stringify(order) === JSON.stringify(correctArr);
+  const col = document.getElementById(colId);
+  const sub = document.getElementById(subId);
+  col.classList.remove('col-correct','col-incorrect');
+  if(isOK){
+    col.classList.add('col-correct'); sub.textContent = "本欄全對！";
+  }else{
+    col.classList.add('col-incorrect'); sub.textContent = "本欄尚未全對。";
+  }
+  return isOK;
+}
+
+function lockAll(){
+  document.querySelectorAll('.item').forEach(el => { el.classList.add('locked'); el.draggable=false; });
+}
+
+function updateButtons(){
+  const filledAll = ["list-images","list-steps","list-purposes"].every(id =>
+    document.querySelectorAll('#'+id+' .slot .item').length === 4
+  );
+  document.getElementById('check-images').disabled = !filledAll;
+  document.getElementById('check-steps').disabled = !filledAll;
+  document.getElementById('check-purposes').disabled = !filledAll;
+  document.getElementById('check-all').disabled = !filledAll;
+}
+
+// Hook buttons
+document.getElementById('check-images').addEventListener('click', ()=>{
+  evalColumn('list-images', ANSWERS.images, 'col-images', 'subfb-images');
+  updateRowHints();
+});
+document.getElementById('check-steps').addEventListener('click', ()=>{
+  evalColumn('list-steps', ANSWERS.steps, 'col-steps', 'subfb-steps');
+  updateRowHints();
+});
+document.getElementById('check-purposes').addEventListener('click', ()=>{
+  evalColumn('list-purposes', ANSWERS.purposes, 'col-purposes', 'subfb-purposes');
+  updateRowHints();
+});
+
+document.getElementById('check-all').addEventListener('click', ()=>{
+  const imgOK = evalColumn('list-images', ANSWERS.images, 'col-images', 'subfb-images');
+  const stepOK = evalColumn('list-steps', ANSWERS.steps, 'col-steps', 'subfb-steps');
+  const purpOK = evalColumn('list-purposes', ANSWERS.purposes, 'col-purposes', 'subfb-purposes');
+  board.classList.remove('correct','incorrect');
+  if(imgOK && stepOK && purpOK){
+    board.classList.add('correct');
+    feedback.textContent = "✔ 全部正確！做得好：①→②→③→④ 的對齊配對完成。";
+    feedback.style.display = 'block';
+    lockAll();
+    document.getElementById('check-all').disabled = true;
+    document.getElementById('redo').style.display = 'none';
+    nextLink.classList.remove('disabled'); nextLink.removeAttribute('aria-disabled');
+  }else{
+    board.classList.add('incorrect');
+    feedback.textContent = "✘ 尚未全對，請依欄位提示調整。";
+    feedback.style.display = 'block';
+    document.getElementById('redo').style.display = 'inline-block';
+  }
+});
+
+document.getElementById('redo').addEventListener('click', ()=>{
+  board.classList.remove('incorrect');
+  feedback.textContent = ""; feedback.style.display = 'none';
+  // reset columns
+  placeInitial();
+  // reset column hints
+  ['images','steps','purposes'].forEach(k => {
+    document.getElementById('subfb-'+k).textContent = "";
+    document.getElementById('col-'+k).classList.remove('col-correct','col-incorrect');
+  });
+  nextLink.classList.add('disabled'); nextLink.setAttribute('aria-disabled','true');
+});
+
+// init
+placeInitial();
+</script>
+</body>
+</html>

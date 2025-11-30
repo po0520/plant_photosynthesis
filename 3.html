@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>植物如何製造養分_學習頁面_光合作用小故事</title>
+<style>
+:root{
+  --green:#1e8e3e; --blue:#1a73e8; --teal:#0f9d58; --orange:#ef6c00;
+  --pink:#d81b60; --purple:#7b1fa2; --brown:#8d6e63; --gray:#5f6368;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,"Microsoft JhengHei",sans-serif;color:#202124;background:#fff;line-height:1.65}
+header{background:linear-gradient(180deg,#e8f5e9,#ffffff);padding:22px 18px 10px;border-bottom:1px solid #e0e3e7;position:sticky;top:0;z-index:5}
+h1{margin:0 0 4px;font-size:24px}
+.subtitle{color:var(--gray);font-size:14px}
+main{max-width:980px;margin:0 auto;padding:18px}
+.card{background:#fff;border:1px solid #e0e3e7;border-radius:14px;padding:16px;box-shadow:0 2px 6px rgba(0,0,0,.05);margin-bottom:16px}
+h2{margin:0 0 10px;font-size:20px}
+p{margin:8px 0}
+.media{position:relative;aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden;border:1px solid #e0e3e7}
+.media iframe{width:100%;height:100%;border:0;display:block}
+.quiz{border:1px dashed #cfd8dc;border-radius:12px;padding:14px;margin-top:10px}
+.quiz h3{margin:0 0 8px;font-size:18px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:8px}
+label{display:flex;gap:8px;align-items:flex-start;padding:8px;border:1px solid #e0e3e7;border-radius:10px}
+.controls{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+button{border-radius:10px;border:1px solid #d0d7de;padding:8px 14px;background:#fff;cursor:pointer}
+button[disabled]{opacity:.6;cursor:not-allowed}
+.feedback{display:none;margin-top:10px;padding:10px;border-radius:10px;background:#f8f9fa;border:1px solid #e0e3e7}
+.correct{border-color:#a5d6a7!important;background:#e8f5e9!important}
+.incorrect{border-color:#ef9a9a!important;background:#ffebee!important}
+.quiz.correct .ok{display:block}
+.quiz.incorrect .no{display:block}
+footer{border-top:1px solid #e0e3e7;background:#fafafa;padding:14px 20px;margin-top:22px}
+.nav{display:flex;justify-content:space-between;align-items:center;max-width:980px;margin:0 auto}
+.nav a{text-decoration:none;border:1px solid #d0d7de;padding:10px 14px;border-radius:10px;background:#fff;color:#111827}
+.nav a.next.disabled{opacity:.5;pointer-events:none}
+.pill{display:inline-block;padding:4px 8px;font-size:12px;border-radius:999px;background:#eef6ff;border:1px solid #d0e2ff;color:#1546a0;margin-left:8px}
+.note{font-size:13px;color:#5f6368}
+</style>
+</head>
+<body>
+<header>
+  <h1>植物如何製造養分_學習頁面_光合作用小故事 <span class="pill">影片導入＋互動練習</span></h1>
+  <div class="subtitle">先看小故事影片，再完成 5 題練習。全部答對後可解鎖前往下一頁。</div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>影片：光合作用小故事</h2>
+    <div class="media">
+      <iframe src="https://www.youtube.com/embed/onbbzP_04Vg?si=Pz4dsV3kT0JRz3ad&rel=0"
+        title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+    <div class="note">若無法播放，請檢查網路或瀏覽器的 YouTube 權限。</div>
+  </section>
+
+  <section class="card">
+    <h2>互動選擇題</h2>
+
+    <div id="q1" class="quiz" data-correct="false">
+      <h3>【問題一】光合作用最主要發生的位置在植物的根莖葉哪一部位？（單選）</h3>
+      <div class="opts">
+        <label><input type="radio" name="q1" value="根"> 根</label>
+        <label><input type="radio" name="q1" value="莖"> 莖</label>
+        <label><input type="radio" name="q1" value="葉"> 葉</label>
+      </div>
+      <div class="controls">
+        <button class="check" disabled>檢查答案</button>
+        <button class="redo" style="display:none;">重做本題</button>
+      </div>
+      <div class="feedback ok">✅ 正確！光合作用主要在<strong>葉</strong>的葉肉細胞進行。</div>
+      <div class="feedback no">❌ 再想想：哪個器官含有大量葉綠體、最適合進行光合作用？</div>
+    </div>
+
+    <div id="q2" class="quiz" data-correct="false">
+      <h3>【問題二】光合作用所需要的水賴自於哪裡？（單選）</h3>
+      <div class="opts">
+        <label><input type="radio" name="q2" value="根吸收經莖到葉"> 從根吸收、經過莖到葉</label>
+        <label><input type="radio" name="q2" value="氣孔進入"> 從葉下表皮間的氣孔進到葉</label>
+      </div>
+      <div class="controls">
+        <button class="check" disabled>檢查答案</button>
+        <button class="redo" style="display:none;">重做本題</button>
+      </div>
+      <div class="feedback ok">✅ 沒錯！水由<strong>根</strong>吸收，經莖的木質部運輸到葉。</div>
+      <div class="feedback no">❌ 提示：氣孔主要負責氣體交換，不是吸水。</div>
+    </div>
+
+    <div id="q3" class="quiz" data-correct="false">
+      <h3>【問題三】光合作用過程中，葉綠素吸收光能後，會將水轉變成下列何種物質？（單選）</h3>
+      <div class="opts">
+        <label><input type="radio" name="q3" value="氧氣"> 氧氣</label>
+        <label><input type="radio" name="q3" value="二氧化碳"> 二氧化碳</label>
+        <label><input type="radio" name="q3" value="葡萄糖"> 葡萄糖</label>
+        <label><input type="radio" name="q3" value="水"> 水</label>
+      </div>
+      <div class="controls">
+        <button class="check" disabled>檢查答案</button>
+        <button class="redo" style="display:none;">重做本題</button>
+      </div>
+      <div class="feedback ok">✅ 正確！水分解會釋放<strong>氧氣</strong>。</div>
+      <div class="feedback no">❌ 再想想：哪一項是水分解所產生並釋放到空氣中的？</div>
+    </div>
+
+    <div id="q4" class="quiz" data-correct="false">
+      <h3>【問題四】光合作用過程中，所需要的原料有哪些？（多選，應選二項）</h3>
+      <div class="opts">
+        <label><input type="checkbox" name="q4" value="氧氣"> 氧氣</label>
+        <label><input type="checkbox" name="q4" value="二氧化碳"> 二氧化碳</label>
+        <label><input type="checkbox" name="q4" value="葡萄糖"> 葡萄糖</label>
+        <label><input type="checkbox" name="q4" value="水"> 水</label>
+      </div>
+      <div class="controls">
+        <button class="check" disabled>檢查答案</button>
+        <button class="redo" style="display:none;">重做本題</button>
+      </div>
+      <div class="feedback ok">✅ 做得好！正確原料是<strong>二氧化碳</strong>與<strong>水</strong>。</div>
+      <div class="feedback no">❌ 提示：請選出進入反應的兩項物質（不是產物）。</div>
+    </div>
+
+    <div id="q5" class="quiz" data-correct="false">
+      <h3>【問題五】光合作用過程中，所產生的產物有哪些？（多選，應選三項）</h3>
+      <div class="opts">
+        <label><input type="checkbox" name="q5" value="氧氣"> 氧氣</label>
+        <label><input type="checkbox" name="q5" value="二氧化碳"> 二氧化碳</label>
+        <label><input type="checkbox" name="q5" value="葡萄糖"> 葡萄糖</label>
+        <label><input type="checkbox" name="q5" value="水"> 水</label>
+      </div>
+      <div class="controls">
+        <button class="check" disabled>檢查答案</button>
+        <button class="redo" style="display:none;">重做本題</button>
+      </div>
+      <div class="feedback ok">✅ 正確！本題的產物為<strong>氧氣、葡萄糖、水</strong>。</div>
+      <div class="feedback no">❌ 再試一次：請勾選三項由反應生成的物質。</div>
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  <div class="nav">
+    <a class="prev" href="2.html">← 上一頁</a>
+    <a class="next disabled" href="./4.html" aria-disabled="true">下一頁 →</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const quizzes = Array.from(document.querySelectorAll('.quiz'));
+  const next = document.querySelector('.next');
+
+  function answered(q){
+    if(q.id==='q1' || q.id==='q2' || q.id==='q3'){
+      return q.querySelector('input[type="radio"]:checked') !== null;
+    }
+    if(q.id==='q4' || q.id==='q5'){
+      return q.querySelectorAll('input[type="checkbox"]:checked').length>0;
+    }
+    return false;
+  }
+  function enableCheckIfAnswered(q){
+    const check = q.querySelector('.check');
+    const inputs = q.querySelectorAll('input');
+    function update(){ check.disabled = !answered(q); }
+    inputs.forEach(i=>i.addEventListener('change', update));
+    update();
+  }
+  function lock(q){
+    q.querySelector('.check').disabled = true;
+    q.querySelector('.redo').style.display = 'inline-block';
+  }
+  function reset(q){
+    q.classList.remove('correct','incorrect');
+    q.dataset.correct = "false";
+    q.querySelector('.redo').style.display = 'none';
+    q.querySelectorAll('input').forEach(i=>{ i.checked=false; i.disabled=false; });
+    enableCheckIfAnswered(q);
+  }
+  function checkAllCorrect(){
+    const ok = quizzes.every(q => q.dataset.correct === "true");
+    if(ok){
+      next.classList.remove('disabled');
+      next.removeAttribute('aria-disabled');
+    }
+  }
+  function evaluate(q){
+    let correct=false;
+    if(q.id==='q1'){ correct = q.querySelector('input[type="radio"]:checked').value==='葉'; }
+    if(q.id==='q2'){ correct = q.querySelector('input[type="radio"]:checked').value==='根吸收經莖到葉'; }
+    if(q.id==='q3'){ correct = q.querySelector('input[type="radio"]:checked').value==='氧氣'; }
+    if(q.id==='q4'){
+      const values=[...q.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value).sort().join('|');
+      const key=['二氧化碳','水'].sort().join('|');
+      correct = values===key;
+    }
+    if(q.id==='q5'){
+      const values=[...q.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value).sort().join('|');
+      const key=['氧氣','葡萄糖','水'].sort().join('|');
+      correct = values===key;
+    }
+    q.classList.toggle('correct', correct);
+    q.classList.toggle('incorrect', !correct);
+    q.dataset.correct = correct ? "true" : "false";
+    lock(q);
+    if(correct){
+      q.querySelectorAll('input').forEach(i=>i.disabled=true);
+    }
+    checkAllCorrect();
+  }
+
+  quizzes.forEach(q=>{
+    enableCheckIfAnswered(q);
+    q.querySelector('.check').addEventListener('click', ()=>evaluate(q));
+    q.querySelector('.redo').addEventListener('click', ()=>reset(q));
+  });
+})();
+</script>
+</body>
+</html>

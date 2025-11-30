@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>葉的構造_學習頁面_構造名稱</title>
+<style>
+:root{
+  --green:#1e8e3e; --blue:#1a73e8; --teal:#0f9d58; --orange:#ef6c00;
+  --pink:#d81b60; --purple:#7b1fa2; --brown:#8d6e63; --gray:#5f6368;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC",system-ui,-apple-system,Segoe UI,Roboto,"Microsoft JhengHei",sans-serif;color:#202124;background:#fff;line-height:1.65}
+header{background:linear-gradient(180deg,#f1f8e9,#ffffff);padding:22px 18px 10px;border-bottom:1px solid #e0e3e7;position:sticky;top:0;z-index:5}
+h1{margin:0 0 4px;font-size:24px}
+.subtitle{color:var(--gray);font-size:14px}
+main{max-width:980px;margin:0 auto;padding:18px}
+.card{background:#fff;border:1px solid #e0e3e7;border-radius:14px;padding:16px;box-shadow:0 2px 6px rgba(0,0,0,.05);margin-bottom:16px}
+h2{margin:0 0 10px;font-size:20px}
+p{margin:8px 0}
+.two-col{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.two-col .text{flex:1 1 380px}
+.two-col .media{flex:0 1 300px}
+.two-col img{width:100%;height:auto;border-radius:12px;border:1px solid #e0e3e7}
+mark{padding:0 .2em;border-radius:.35em;font-weight:600;background:none}
+.k-epidermis{color:var(--purple)}
+.k-cuticle{color:var(--orange)}
+.k-guard{color:var(--pink)}
+.k-chloro{color:var(--teal)}
+.k-stoma{color:#1565c0}
+.k-mesophyll{color:var(--blue)}
+.k-vein{color:var(--brown)}
+.k-transport{color:#00695c}
+.small{font-size:13px;color:#5f6368}
+/* quiz */
+.quiz{border:1px dashed #cfd8dc;border-radius:12px;padding:14px;margin-top:10px}
+.quiz h3{margin:0 0 8px;font-size:18px}
+.grid{display:grid;grid-template-columns:1fr 320px;gap:14px}
+.grid img{width:100%;max-width:480px;border:1px solid #e0e3e7;border-radius:12px;justify-self:center}
+.sel-list{display:grid;grid-template-columns:repeat(2,minmax(180px,1fr));gap:8px;align-content:start}
+.sel{border:1px solid #e0e3e7;border-radius:10px;padding:8px}
+.sel label{display:block;font-weight:600;margin-bottom:6px}
+select{width:100%;padding:8px;border:1px solid #cfd8dc;border-radius:8px;background:#fff}
+.controls{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+button{border-radius:10px;border:1px solid #d0d7de;padding:8px 14px;background:#fff;cursor:pointer}
+button[disabled]{opacity:.6;cursor:not-allowed}
+.feedback{display:none;margin-top:10px;padding:10px;border-radius:10px;background:#f8f9fa;border:1px solid #e0e3e7}
+.correct{border-color:#a5d6a7!important;background:#e8f5e9!important}
+.incorrect{border-color:#ef9a9a!important;background:#ffebee!important}
+.quiz.correct .ok{display:block}
+.quiz.incorrect .no{display:block}
+/* footer nav */
+footer{border-top:1px solid #e0e3e7;background:#fafafa;padding:14px 20px;margin-top:22px}
+.nav{display:flex;justify-content:space-between;align-items:center;max-width:980px;margin:0 auto}
+.nav a{text-decoration:none;border:1px solid #d0d7de;padding:10px 14px;border-radius:10px;background:#fff;color:#111827}
+.nav a.next.disabled{opacity:.5;pointer-events:none}
+.pill{display:inline-block;padding:4px 8px;font-size:12px;border-radius:999px;background:#eef6ff;border:1px solid #d0e2ff;color:#1546a0;margin-left:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>葉的構造_學習頁面_構造名稱 <span class="pill">生物七上</span></h1>
+  <div class="subtitle">閱讀重點後，完成「填圖對對碰」。全部正確才會解鎖下一頁。</div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>葉的構造與名稱</h2>
+    <div class="two-col">
+      <div class="text">
+        <p>葉的<mark class="k-epidermis">上、下表皮</mark>主要由透明無色、排列緊密，具保護功能的表皮細胞組成，
+        其外側多具有<mark class="k-cuticle">角質層</mark>，可避免水分過度散失。
+        表皮上散布著半月形的<mark class="k-guard">保衛細胞</mark>，內含<mark class="k-chloro">葉綠體</mark>，
+        且保衛細胞兩兩成對，中間會形成<mark class="k-stoma">氣孔</mark>，是氣體進出植物的主要通道。</p>
+        <p>上、下表皮間的<mark class="k-mesophyll">葉肉組織</mark>是由葉肉細胞組成，葉肉細胞具有大量的
+        <mark class="k-chloro">葉綠體</mark>，是進行光合作用的主要場所。
+        <mark class="k-vein">葉脈</mark>是葉內的輸導組織，能<mark class="k-transport">運輸</mark>水分和養分，以利各種代謝作用的進行。</p>
+      </div>
+      <div class="media">
+        <img src="LEAF2.png" alt="葉的構造實拍或示意">
+        <div class="small">圖：葉的構造示意（角質層、表皮、葉肉、葉脈、保衛細胞與氣孔）</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card quiz" id="matchQuiz" data-correct="false">
+    <h2>填圖對對碰：把 A～G 的標籤與正確名稱配對</h2>
+    <div class="grid">
+      <img src="LEAF3.png" alt="葉的構造標註圖 (A~G)">
+      <div class="sel-list">
+        <!-- 7 selects -->
+        <div class="sel">
+          <label for="A">A</label>
+          <select id="A">
+            <option value="">請選擇</option>
+            <option>角質層</option><option>上表皮</option><option>葉肉組織</option>
+            <option>葉脈</option><option>下表皮</option><option>保衛細胞</option><option>氣孔</option>
+          </select>
+        </div>
+        <div class="sel">
+          <label for="B">B</label>
+          <select id="B">
+            <option value="">請選擇</option>
+            <option>角質層</option><option>上表皮</option><option>葉肉組織</option>
+            <option>葉脈</option><option>下表皮</option><option>保衛細胞</option><option>氣孔</option>
+          </select>
+        </div>
+        <div class="sel">
+          <label for="C">C</label>
+          <select id="C">
+            <option value="">請選擇</option>
+            <option>角質層</option><option>上表皮</option><option>葉肉組織</option>
+            <option>葉脈</option><option>下表皮</option><option>保衛細胞</option><option>氣孔</option>
+          </select>
+        </div>
+        <div class="sel">
+          <label for="D">D</label>
+          <select id="D">
+            <option value="">請選擇</option>
+            <option>角質層</option><option>上表皮</option><option>葉肉組織</option>
+            <option>葉脈</option><option>下表皮</option><option>保衛細胞</option><option>氣孔</option>
+          </select>
+        </div>
+        <div class="sel">
+          <label for="E">E</label>
+          <select id="E">
+            <option value="">請選擇</option>
+            <option>角質層</option><option>上表皮</option><option>葉肉組織</option>
+            <option>葉脈</option><option>下表皮</option><option>保衛細胞</option><option>氣孔</option>
+          </select>
+        </div>
+        <div class="sel">
+          <label for="F">F</label>
+          <select id="F">
+            <option value="">請選擇</option>
+            <option>角質層</option><option>上表皮</option><option>葉肉組織</option>
+            <option>葉脈</option><option>下表皮</option><option>保衛細胞</option><option>氣孔</option>
+          </select>
+        </div>
+        <div class="sel">
+          <label for="G">G</label>
+          <select id="G">
+            <option value="">請選擇</option>
+            <option>角質層</option><option>上表皮</option><option>葉肉組織</option>
+            <option>葉脈</option><option>下表皮</option><option>保衛細胞</option><option>氣孔</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="checkBtn" disabled>檢查答案</button>
+      <button id="redoBtn" style="display:none;">重做本題</button>
+    </div>
+    <div class="feedback ok">✅ 全對！A=角質層、B=上表皮、C=葉肉組織、D=葉脈、E=下表皮、F=保衛細胞、G=氣孔。</div>
+    <div class="feedback no">❌ 還差一點點！請依據課文與圖片再次檢查配對。</div>
+  </section>
+</main>
+
+<footer>
+  <div class="nav">
+    <a class="prev" href="1.html">← 上一頁</a>
+    <a class="next disabled" href="./3.html" aria-disabled="true">下一頁 →</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const ans = {A:"角質層",B:"上表皮",C:"葉肉組織",D:"葉脈",E:"下表皮",F:"保衛細胞",G:"氣孔"};
+  const selects = ["A","B","C","D","E","F","G"].map(id=>document.getElementById(id));
+  const checkBtn = document.getElementById('checkBtn');
+  const redoBtn = document.getElementById('redoBtn');
+  const quiz = document.getElementById('matchQuiz');
+  const next = document.querySelector('.next');
+
+  function allFilled(){ return selects.every(s=>s.value !== ""); }
+  function enableCheck(){ checkBtn.disabled = !allFilled(); }
+  selects.forEach(s=>s.addEventListener('change', enableCheck));
+  enableCheck();
+
+  checkBtn.addEventListener('click', ()=>{
+    const correct = selects.every(s => s.value === ans[s.id]);
+    quiz.classList.toggle('correct', correct);
+    quiz.classList.toggle('incorrect', !correct);
+    checkBtn.disabled = true;
+    redoBtn.style.display = 'inline-block';
+    // lock selects on correct
+    if(correct){
+      selects.forEach(s=>s.disabled = true);
+      next.classList.remove('disabled');
+      next.removeAttribute('aria-disabled');
+    }
+  });
+
+  redoBtn.addEventListener('click', ()=>{
+    quiz.classList.remove('correct','incorrect');
+    selects.forEach(s=>{ s.value=""; s.disabled=false; });
+    checkBtn.disabled = true;
+    redoBtn.style.display = 'none';
+  });
+})();
+</script>
+</body>
+</html>
